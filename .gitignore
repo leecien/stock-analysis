@@ -12,3 +12,4 @@ public/
 datastore/
 app/build/
 app/.dart_tool/
+*-for-chatgpt.zip
