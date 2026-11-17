@@ -264,10 +264,11 @@ def build_history(cfg, prices: dict[str, pd.DataFrame], provider: AIProvider, ca
         matched = None
         if ref is not None:
             p = pos_on_or_after(ref.index, d)
-            for sid, sp in seed_trading_days.items():
-                if p is not None and -1 <= p - sp <= 3:
-                    matched = sid
-                    break
+            if p is not None:
+                # 事件前 1 天到後 3 個交易日內，取最接近的事件（同一天優先）
+                near = [(abs(p - sp), p - sp < 0, sid) for sid, sp in seed_trading_days.items() if -1 <= p - sp <= 3]
+                if near:
+                    matched = min(near)[2]
         rec = {"date": d, "moves": moves, "matched_event": matched}
         detected.append(rec)
         if not matched:
@@ -301,7 +302,10 @@ def build_history(cfg, prices: dict[str, pd.DataFrame], provider: AIProvider, ca
         )
     for ev in events:
         if ev["source"] == "seed":
-            ev["moves"] = next((r["moves"] for r in detected if r["matched_event"] == ev["id"]), {})
+            # 對應到的大漲大跌日中，取最接近事件日期的那一天
+            cands = [r for r in detected if r["matched_event"] == ev["id"]]
+            cands.sort(key=lambda r: abs(pd.Timestamp(r["date"]) - pd.Timestamp(ev["date"])))
+            ev["moves"] = cands[0]["moves"] if cands else {}
     events.sort(key=lambda e: e["date"], reverse=True)
 
     # 3. 修正波段

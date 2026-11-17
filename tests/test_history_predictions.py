@@ -73,3 +73,26 @@ def test_budget(cfg):
     assert b.allow("fast")
     b.add(Usage("claude", "claude-sonnet-5-5", input_tokens=8_000_000))
     assert not b.allow("deep")
+
+
+def test_moves_match_nearest_seed_event(cfg):
+    from stock_analysis.ai.base import MockProvider
+    from stock_analysis.history import build_history
+
+    idx = pd.bdate_range("2025-01-01", periods=120)
+    vals = np.full(120, 100.0) * np.exp(np.random.default_rng(3).normal(0, 0.002, 120).cumsum())
+    p3, p7, p9 = idx.get_loc(pd.Timestamp("2025-04-03")), idx.get_loc(pd.Timestamp("2025-04-07")), idx.get_loc(pd.Timestamp("2025-04-09"))
+    vals[p3:] *= 0.94
+    vals[p7:] *= 0.90
+    vals[p9:] *= 1.10
+    df = pd.DataFrame({"Close": vals}, index=idx)
+    cfg.seed_events = [
+        {"date": pd.Timestamp("2025-04-03").date(), "title": "A", "category": "trade"},
+        {"date": pd.Timestamp("2025-04-07").date(), "title": "B", "category": "trade"},
+        {"date": pd.Timestamp("2025-04-09").date(), "title": "C", "category": "trade"},
+    ]
+    cfg.watchlist = []
+    hist, _ = build_history(cfg, {"^GSPC": df}, MockProvider(), {}, demo=True)
+    by_id = {e["id"]: e for e in hist["events"]}
+    assert by_id["seed-2025-04-07"]["moves"]["^GSPC"]["ret"] < -9
+    assert by_id["seed-2025-04-09"]["moves"]["^GSPC"]["ret"] > 9

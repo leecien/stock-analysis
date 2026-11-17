@@ -186,7 +186,7 @@ def rule_extract(items: list[NewsItem], index: ThemeIndex) -> list[dict]:
         d = n.to_dict()
         d.update(
             {
-                "ai_summary": n.title[:40],
+                "ai_summary": n.title,
                 "keywords": m.keywords[:6],
                 "event_type": event_type,
                 "sentiment": sentiment,
