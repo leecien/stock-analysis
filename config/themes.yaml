@@ -166,7 +166,7 @@ themes:
     name: 生技醫療
     keywords: [生技, 新藥, FDA, 臨床試驗, 減重藥, GLP-1, 藥證, 醫療]
     us: [LLY, NVO, UNH]
-    tw: {6446.TWO: 藥華藥, 6472.TWO: 保瑞}
+    tw: {6446.TW: 藥華藥, 6472.TW: 保瑞}
     drivers:
       - 新藥審核與臨床結果
       - 美國藥價政策
@@ -175,7 +175,7 @@ themes:
     name: 國防軍工
     keywords: [國防, 軍購, 無人機, 軍工, 國防預算, 國艦國造, 潛艦]
     us: [LMT, RTX, NOC]
-    tw: {2634.TW: 漢翔, 2208.TW: 台船, 8033.TWO: 雷虎}
+    tw: {2634.TW: 漢翔, 2208.TW: 台船, 8033.TW: 雷虎}
     drivers:
       - 地緣政治緊張 → 國防預算增加
       - 國防自主政策

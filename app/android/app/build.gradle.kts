@@ -16,7 +16,8 @@ plugins {
 
 android {
     namespace = "com.leecien.stock_ai"
-    compileSdk = flutter.compileSdkVersion
+    // flutter_local_notifications、androidx.core 需要 compileSdk 37 以上
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
