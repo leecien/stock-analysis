@@ -1,0 +1,17 @@
+gradle-wrapper.jar
+/.gradle
+/captures/
+/gradlew
+/gradlew.bat
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/to/reference-keystore
+key.properties
+**/*.keystore
+**/*.jks
+
+# 固定的除錯簽章（非機密，讓每次編出的 APK 可以直接覆蓋安裝）
+!app/ci-debug.keystore
