@@ -1,0 +1,14 @@
+# 自選股清單（之後可以直接改這個檔案）
+# 台股上市加 .TW，上櫃加 .TWO；美股直接寫代號
+stocks:
+  - {symbol: 2330.TW, name: 台積電}
+  - {symbol: 2454.TW, name: 聯發科}
+  - {symbol: 2317.TW, name: 鴻海}
+  - {symbol: 2382.TW, name: 廣達}
+  - {symbol: 2408.TW, name: 南亞科}
+  - {symbol: 2344.TW, name: 華邦電}
+  - {symbol: 0050.TW, name: 元大台灣50}
+  - {symbol: NVDA, name: 輝達}
+  - {symbol: MU, name: 美光}
+  - {symbol: TSM, name: 台積電ADR}
+  - {symbol: AAPL, name: 蘋果}

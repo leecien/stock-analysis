@@ -5,6 +5,10 @@ venv/
 .env
 .pytest_cache/
 *.egg-info/
-data/
 output/
 .ipynb_checkpoints/
+state/
+public/
+datastore/
+app/build/
+app/.dart_tool/

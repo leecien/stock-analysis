@@ -1,0 +1,277 @@
+# ============================================================
+# 產業主題對照表：關鍵字 → 主題 → 個股
+# drivers：這個主題「漲跌的典型原因」，給 AI 當推理依據
+# ============================================================
+
+themes:
+  memory:
+    name: 記憶體
+    keywords: [記憶體, DRAM, NAND, HBM, DDR5, DDR4, 快閃記憶體, 合約價, 現貨價, 記憶體報價, memory chip, flash memory, Micron, 美光, SK海力士, SK Hynix, 三星電子]
+    us: [MU, WDC, SNDK]
+    tw: {2408.TW: 南亞科, 2344.TW: 華邦電, 2337.TW: 旺宏, 3260.TWO: 威剛, 8299.TWO: 群聯, 4967.TW: 十銓, 2451.TW: 創見}
+    drivers:
+      - 記憶體合約價、現貨價上漲 → 營收與毛利改善，股價通常領先報價反應
+      - 原廠減產、庫存下降 → 供給吃緊，報價轉強
+      - AI 伺服器帶動 HBM 需求，排擠一般 DRAM 產能
+      - 手機、PC 需求疲弱或庫存過高 → 報價下跌
+
+  ai_server:
+    name: AI 伺服器
+    keywords: [AI伺服器, AI 伺服器, GPU, 輝達, NVIDIA, Nvidia, Blackwell, Rubin, GB200, GB300, 資料中心, data center, 雲端資本支出, capex, 算力]
+    us: [NVDA, AMD, SMCI, DELL]
+    tw: {2382.TW: 廣達, 3231.TW: 緯創, 2317.TW: 鴻海, 6669.TW: 緯穎, 2356.TW: 英業達}
+    drivers:
+      - 雲端大廠（微軟、Google、亞馬遜、Meta）上修資本支出 → 伺服器訂單增加
+      - 輝達財報與新平台出貨進度
+      - 美國晶片出口管制 → 中國需求受限
+
+  foundry:
+    name: 晶圓代工
+    keywords: [台積電, TSMC, 晶圓代工, 先進製程, 2奈米, 3奈米, 2nm, 3nm, 產能利用率, foundry, 聯電, 英特爾代工]
+    us: [TSM, INTC, GFS]
+    tw: {2330.TW: 台積電, 2303.TW: 聯電, 5347.TWO: 世界先進, 6770.TW: 力積電}
+    drivers:
+      - 先進製程需求（AI、手機晶片）→ 台積電營收與毛利
+      - 成熟製程價格競爭（中國擴產）→ 聯電、世界先進承壓
+      - 地緣政治與美國設廠政策
+
+  packaging_equipment:
+    name: 先進封裝與設備
+    keywords: [CoWoS, 先進封裝, SoIC, 封測, 半導體設備, 曝光機, ASML, 應用材料, advanced packaging]
+    us: [AMAT, LRCX, KLAC, ASML]
+    tw: {3711.TW: 日月光投控, 6187.TWO: 萬潤, 3131.TWO: 弘塑}
+    drivers:
+      - CoWoS 產能擴充 → 設備與材料訂單
+      - 晶圓廠資本支出增減
+
+  ic_design:
+    name: IC 設計
+    keywords: [IC設計, 聯發科, MediaTek, ASIC, 客製化晶片, 博通, Broadcom, 高通, Qualcomm, 天璣]
+    us: [AVGO, QCOM, MRVL, ARM]
+    tw: {2454.TW: 聯發科, 2379.TW: 瑞昱, 3034.TW: 聯詠, 5274.TWO: 信驊, 3661.TW: 世芯-KY, 3443.TW: 創意}
+    drivers:
+      - 手機、PC 換機潮
+      - 雲端廠自研 ASIC 晶片訂單
+      - 庫存調整週期
+
+  thermal:
+    name: 散熱
+    keywords: [散熱, 液冷, 水冷板, 氣冷, 散熱模組, liquid cooling]
+    us: [VRT]
+    tw: {3017.TW: 奇鋐, 3324.TWO: 雙鴻, 3653.TW: 健策, 2421.TW: 建準}
+    drivers:
+      - AI 晶片功耗提高 → 液冷滲透率上升
+
+  pcb:
+    name: PCB / 載板
+    keywords: [PCB, 載板, ABF, CCL, 銅箔基板, 印刷電路板]
+    us: []
+    tw: {2383.TW: 台光電, 2368.TW: 金像電, 3037.TW: 欣興, 8046.TW: 南電, 4958.TW: 臻鼎-KY}
+    drivers:
+      - AI 伺服器板層數增加、規格升級 → 單價提高
+      - ABF 載板供需與價格
+
+  networking:
+    name: 網通與光通訊
+    keywords: [矽光子, CPO, 光通訊, 800G, 1.6T, 交換器, 光模組, switch, optical]
+    us: [ANET, CSCO, COHR, LITE]
+    tw: {2345.TW: 智邦, 4979.TWO: 華星光, 3363.TWO: 上詮}
+    drivers:
+      - 資料中心網路升級（800G → 1.6T）
+      - 矽光子、CPO 技術導入進度
+
+  power_grid:
+    name: 重電與電力
+    keywords: [重電, 電網, 變壓器, 台電, 缺電, 電力, 儲能, 強韌電網, power grid]
+    us: [GEV, ETN]
+    tw: {1519.TW: 華城, 1503.TW: 士電, 1513.TW: 中興電, 1514.TW: 亞力}
+    drivers:
+      - 政府電網投資計畫、資料中心用電需求
+      - 美國電網設備缺貨 → 外銷訂單
+
+  apple_chain:
+    name: 蘋果供應鏈
+    keywords: [蘋果, Apple, iPhone, 蘋概股, 蘋果供應鏈, iPad, Mac]
+    us: [AAPL]
+    tw: {3008.TW: 大立光, 4938.TW: 和碩, 3406.TW: 玉晶光, 2317.TW: 鴻海}
+    drivers:
+      - iPhone 新機銷售、拉貨力道
+      - 中國市場銷售、關稅對生產基地的影響
+
+  ev:
+    name: 電動車
+    keywords: [電動車, Tesla, 特斯拉, 電池, 充電樁, EV]
+    us: [TSLA, RIVN]
+    tw: {2308.TW: 台達電, 3665.TW: 貿聯-KY, 1536.TW: 和大}
+    drivers:
+      - 電動車銷量與價格戰
+      - 補貼政策變化
+
+  robotics:
+    name: 機器人
+    keywords: [機器人, 人形機器人, humanoid, Optimus, 自動化, 減速機]
+    us: [TSLA, ISRG]
+    tw: {2049.TW: 上銀, 1590.TW: 亞德客-KY, 1504.TW: 東元}
+    drivers:
+      - 人形機器人量產時程、大廠發表會
+
+  shipping:
+    name: 航運
+    keywords: [航運, 貨櫃, 運價, SCFI, 紅海, 蘇伊士, 塞港, 散裝, BDI, 長榮海運, 陽明]
+    us: [ZIM]
+    tw: {2603.TW: 長榮, 2609.TW: 陽明, 2615.TW: 萬海}
+    drivers:
+      - 運價指數（SCFI）漲跌
+      - 航道受阻（紅海、蘇伊士運河）→ 繞道推升運價
+      - 新船交付過多 → 運力過剩
+
+  airlines:
+    name: 航空觀光
+    keywords: [航空, 華航, 長榮航, 觀光, 旅遊, 機票, 航空貨運]
+    us: [DAL, UAL]
+    tw: {2610.TW: 華航, 2618.TW: 長榮航, 2731.TW: 雄獅}
+    drivers:
+      - 油價（成本）
+      - 疫情與出入境政策、旅遊需求
+
+  finance:
+    name: 金融
+    keywords: [金控, 銀行, 壽險, 升息, 降息, 殖利率, 利差, 配息, 股利]
+    us: [JPM, BAC, GS]
+    tw: {2881.TW: 富邦金, 2882.TW: 國泰金, 2891.TW: 中信金, 2886.TW: 兆豐金}
+    drivers:
+      - 升息 → 銀行利差擴大；壽險受債券評價影響
+      - 股市大漲 → 金控投資收益增加
+      - 台幣匯率 → 壽險避險成本
+
+  steel_cement:
+    name: 鋼鐵水泥原物料
+    keywords: [鋼價, 鐵礦砂, 鋼鐵, 水泥, 原物料, 中國刺激, 基建]
+    us: [NUE, FCX]
+    tw: {2002.TW: 中鋼, 2027.TW: 大成鋼, 1101.TW: 台泥}
+    drivers:
+      - 中國經濟刺激政策、房地產景氣
+      - 鋼價與原物料價格
+
+  oil_petrochem:
+    name: 石油與塑化
+    keywords: [原油, 油價, OPEC, 塑化, 石化, 布蘭特, WTI, 減產協議]
+    us: [XOM, CVX]
+    tw: {1301.TW: 台塑, 1303.TW: 南亞, 6505.TW: 台塑化}
+    drivers:
+      - OPEC+ 產量決策、中東局勢
+      - 全球景氣與需求
+
+  biotech:
+    name: 生技醫療
+    keywords: [生技, 新藥, FDA, 臨床試驗, 減重藥, GLP-1, 藥證, 醫療]
+    us: [LLY, NVO, UNH]
+    tw: {6446.TWO: 藥華藥, 6472.TWO: 保瑞}
+    drivers:
+      - 新藥審核與臨床結果
+      - 美國藥價政策
+
+  defense:
+    name: 國防軍工
+    keywords: [國防, 軍購, 無人機, 軍工, 國防預算, 國艦國造, 潛艦]
+    us: [LMT, RTX, NOC]
+    tw: {2634.TW: 漢翔, 2208.TW: 台船, 8033.TWO: 雷虎}
+    drivers:
+      - 地緣政治緊張 → 國防預算增加
+      - 國防自主政策
+
+  panel:
+    name: 面板
+    keywords: [面板, 面板報價, LCD, OLED, 電視面板]
+    us: []
+    tw: {2409.TW: 友達, 3481.TW: 群創}
+    drivers:
+      - 面板報價、電視與 PC 需求
+      - 中國面板廠產能調控
+
+  big_tech_software:
+    name: 雲端與 AI 應用
+    keywords: [微軟, Microsoft, Google, 谷歌, Alphabet, 亞馬遜, Amazon, AWS, Meta, OpenAI, ChatGPT, Claude, Anthropic, Gemini, 雲端, AI應用, 生成式AI]
+    us: [MSFT, GOOGL, AMZN, META, ORCL, PLTR]
+    tw: {}
+    drivers:
+      - 雲端營收成長、AI 變現速度
+      - 資本支出過高引發獲利疑慮
+
+  safe_haven:
+    name: 避險資產
+    keywords: [黃金, 金價, 避險, 美元指數, 公債, 日圓]
+    us: [GLD, TLT]
+    tw: {}
+    drivers:
+      - 戰爭、金融危機 → 資金湧入黃金、公債
+      - 實質利率下降 → 金價上漲
+
+  consumer:
+    name: 內需消費
+    keywords: [零售, 消費, 百貨, 超商, 餐飲, 內需]
+    us: [WMT, COST]
+    tw: {1216.TW: 統一, 2912.TW: 統一超}
+    drivers:
+      - 薪資、就業與消費信心
+
+# ============================================================
+# 總體經濟與政治因素：影響「大盤」的力量
+# impact：對各主題的典型影響方向（+ 偏多、- 偏空）
+# ============================================================
+macro_factors:
+  rate_hike:
+    name: 升息 / 鷹派
+    category: central_bank
+    keywords: [升息, 鷹派, 緊縮, rate hike, hawkish, 縮表, 利率上升]
+    impact: {market: -1, finance: +1, big_tech_software: -1, ai_server: -1}
+  rate_cut:
+    name: 降息 / 鴿派
+    category: central_bank
+    keywords: [降息, 鴿派, 寬鬆, rate cut, dovish, QE, 量化寬鬆]
+    impact: {market: +1, big_tech_software: +1, finance: -1, safe_haven: +1}
+  inflation:
+    name: 通膨升溫
+    category: macro_data
+    keywords: [通膨, CPI, PCE, 物價, inflation, 核心通膨]
+    impact: {market: -1, safe_haven: +1}
+  recession:
+    name: 景氣衰退疑慮
+    category: macro_data
+    keywords: [衰退, 失業率, 非農, 裁員, recession, 景氣下滑, PMI]
+    impact: {market: -1, safe_haven: +1, consumer: -1}
+  tariff_trade:
+    name: 關稅 / 貿易戰
+    category: trade
+    keywords: [關稅, 貿易戰, 出口管制, 制裁, tariff, trade war, 實體清單, 232條款, 301條款]
+    impact: {market: -1, apple_chain: -1, foundry: -1, steel_cement: -1}
+  war_geopolitics:
+    name: 戰爭 / 地緣政治
+    category: war
+    keywords: [戰爭, 開戰, 空襲, 飛彈, 入侵, 衝突, 台海, 共軍, 軍演, 以色列, 伊朗, 俄羅斯, 烏克蘭, 中東, war, invasion, missile]
+    impact: {market: -1, defense: +1, oil_petrochem: +1, safe_haven: +1, shipping: +1, airlines: -1}
+  election_policy:
+    name: 選舉 / 政策
+    category: politics
+    keywords: [選舉, 大選, 總統, 國會, 政府關門, 債務上限, 行政命令, 立法院, election, shutdown]
+    impact: {market: 0}
+  pandemic:
+    name: 疫情
+    category: pandemic
+    keywords: [疫情, 確診, 封城, 病毒, 疫苗, pandemic, lockdown]
+    impact: {market: -1, airlines: -1, biotech: +1, consumer: -1}
+  financial_crisis:
+    name: 金融危機 / 信用風險
+    category: financial_crisis
+    keywords: [倒閉, 擠兌, 違約, 破產, 金融危機, 信用危機, bank run, default, bankruptcy, 流動性危機]
+    impact: {market: -1, finance: -1, safe_haven: +1}
+  disaster:
+    name: 天災
+    category: disaster
+    keywords: [地震, 颱風, 停電, 海嘯, 水災, earthquake, typhoon]
+    impact: {market: -1}
+  china_stimulus:
+    name: 中國刺激政策
+    category: politics
+    keywords: [中國刺激, 人行降準, 降準, 中國經濟, 陸股, 中國救市, 房地產紓困]
+    impact: {market: +1, steel_cement: +1, oil_petrochem: +1}

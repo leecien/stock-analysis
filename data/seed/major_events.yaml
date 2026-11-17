@@ -1,0 +1,65 @@
+# ============================================================
+# 2006 年至今重大事件（人工整理的種子資料）
+# 系統會自動計算每個事件後 1/5/20/60 個交易日的大盤漲跌幅，
+# 並把「自動偵測到的大漲大跌日」對應到這些事件。
+# category: war 戰爭/地緣政治, politics 政治/政策, central_bank 央行,
+#           macro_data 經濟數據, trade 關稅/貿易, pandemic 疫情,
+#           financial_crisis 金融危機, disaster 天災, supply_price 產業供需/報價,
+#           earnings 財報, technology 技術/產業趨勢, market 市場結構
+# date_precision: day（確切日期）或 month（約略月份）
+# ============================================================
+events:
+  - {date: 2007-02-27, title: 上海股市單日重挫近9%，全球股市連動下跌, category: market, region: cn, themes: []}
+  - {date: 2007-08-09, title: 法國巴黎銀行凍結旗下基金，次貸危機爆發, category: financial_crisis, region: global, themes: [finance]}
+  - {date: 2008-03-16, title: 貝爾斯登瀕臨倒閉，由摩根大通收購, category: financial_crisis, region: us, themes: [finance]}
+  - {date: 2008-09-15, title: 雷曼兄弟聲請破產，金融海嘯全面爆發, category: financial_crisis, region: global, themes: [finance]}
+  - {date: 2008-09-29, title: 美國眾議院否決7000億美元紓困案，S&P 500 單日跌近9%, category: politics, region: us, themes: [finance]}
+  - {date: 2008-10-13, title: 各國聯手救市，S&P 500 單日大漲近12%, category: central_bank, region: global, themes: [finance]}
+  - {date: 2009-03-09, title: 美股金融海嘯後見底，展開長期多頭, category: market, region: us, themes: []}
+  - {date: 2010-05-06, title: 美股閃電崩盤（Flash Crash）, category: market, region: us, themes: []}
+  - {date: 2011-03-11, title: 東日本大地震與福島核災, category: disaster, region: jp, themes: [memory, panel]}
+  - {date: 2011-08-05, title: 標普調降美國主權信用評等，隔週全球股災, category: financial_crisis, region: us, themes: [finance, safe_haven]}
+  - {date: 2012-07-26, title: 歐洲央行總裁德拉吉宣示「不惜一切代價」拯救歐元, category: central_bank, region: eu, themes: [finance]}
+  - {date: 2013-05-22, title: 柏南奇暗示縮減購債，引發縮減恐慌（Taper Tantrum）, category: central_bank, region: us, themes: [finance]}
+  - {date: 2014-03-18, title: 俄羅斯併吞克里米亞, category: war, region: eu, themes: [oil_petrochem, safe_haven]}
+  - {date: 2014-11-27, title: OPEC 決議不減產，油價崩跌, category: supply_price, region: global, themes: [oil_petrochem, airlines]}
+  - {date: 2015-08-11, title: 中國人民銀行讓人民幣大幅貶值, category: central_bank, region: cn, themes: [steel_cement]}
+  - {date: 2015-08-24, title: 全球股災「黑色星期一」，道瓊盤中重挫逾千點, category: market, region: global, themes: []}
+  - {date: 2015-12-16, title: 聯準會金融海嘯後首度升息, category: central_bank, region: us, themes: [finance]}
+  - {date: 2016-01-04, title: 中國股市熔斷機制首日即觸發，全球開年股災, category: market, region: cn, themes: []}
+  - {date: 2016-06-24, title: 英國脫歐公投結果出爐，全球股市重挫, category: politics, region: eu, themes: [safe_haven]}
+  - {date: 2016-11-09, title: 川普首度當選美國總統, category: politics, region: us, themes: [finance, steel_cement]}
+  - {date: 2018-02-05, title: 波動率商品崩盤，道瓊單日重挫1175點, category: market, region: us, themes: []}
+  - {date: 2018-03-22, title: 川普宣布對中國商品課徵關稅，美中貿易戰開打, category: trade, region: global, themes: [apple_chain, foundry]}
+  - {date: 2018-12-24, title: 美股聖誕夜崩跌，第四季修正見底, category: market, region: us, themes: []}
+  - {date: 2019-05-06, title: 川普宣布調高中國商品關稅至25%, category: trade, region: global, themes: [apple_chain]}
+  - {date: 2019-07-31, title: 聯準會2008年以來首度降息, category: central_bank, region: us, themes: [finance]}
+  - {date: 2019-08-05, title: 人民幣破7、美國將中國列為匯率操縱國, category: trade, region: global, themes: []}
+  - {date: 2020-01-23, title: 武漢封城，新冠疫情爆發, category: pandemic, region: cn, themes: [airlines, biotech]}
+  - {date: 2020-02-24, title: 新冠疫情擴散至歐洲，全球股市開始崩跌, category: pandemic, region: global, themes: [airlines]}
+  - {date: 2020-03-16, title: 聯準會緊急降息至零，S&P 500 單日重挫約12%, category: pandemic, region: global, themes: [airlines, finance]}
+  - {date: 2020-03-23, title: 聯準會宣布無上限量化寬鬆，美股疫情低點, category: central_bank, region: us, themes: []}
+  - {date: 2020-04-20, title: 美國原油期貨史上首度跌至負值, category: supply_price, region: us, themes: [oil_petrochem]}
+  - {date: 2020-11-09, title: 輝瑞宣布新冠疫苗有效率逾90%, category: pandemic, region: global, themes: [airlines, biotech]}
+  - {date: 2021-05-12, title: 台股盤中重挫逾1400點（美國通膨升溫、本土疫情升溫）, category: pandemic, region: tw, themes: []}
+  - {date: 2022-02-24, title: 俄羅斯入侵烏克蘭, category: war, region: global, themes: [oil_petrochem, defense, safe_haven]}
+  - {date: 2022-03-16, title: 聯準會展開本輪升息循環, category: central_bank, region: us, themes: [finance, big_tech_software]}
+  - {date: 2022-06-13, title: CPI 超乎預期，S&P 500 進入熊市, category: macro_data, region: us, themes: []}
+  - {date: 2022-08-02, title: 美國眾議院議長裴洛西訪台，隨後共軍對台軍演, category: war, region: tw, themes: [defense]}
+  - {date: 2022-09-13, title: 美國 CPI 高於預期，S&P 500 單日重挫逾4%, category: macro_data, region: us, themes: []}
+  - {date: 2022-11-10, title: 美國 CPI 低於預期，S&P 500 單日大漲逾5%, category: macro_data, region: us, themes: [big_tech_software]}
+  - {date: 2022-11-30, title: OpenAI 推出 ChatGPT，生成式 AI 浪潮開始, category: technology, region: global, themes: [big_tech_software, ai_server]}
+  - {date: 2023-03-10, title: 矽谷銀行倒閉，美國區域銀行危機, category: financial_crisis, region: us, themes: [finance]}
+  - {date: 2023-05-25, title: 輝達財測遠超預期，股價單日大漲逾24%，AI 伺服器行情啟動, category: earnings, region: global, themes: [ai_server, foundry, thermal]}
+  - {date: 2023-10-09, title: 以色列與哈瑪斯開戰（10月7日哈瑪斯突襲以色列）, category: war, region: me, themes: [oil_petrochem, defense]}
+  - {date: 2024-01-15, title: 台灣總統大選結果（1月13日投票）, category: politics, region: tw, themes: []}
+  - {date: 2024-04-03, title: 花蓮規模7.2強震, category: disaster, region: tw, themes: [foundry, memory]}
+  - {date: 2024-08-05, title: 日圓套利交易平倉，日股重挫逾12%、台股單日跌點史上最大, category: market, region: global, themes: []}
+  - {date: 2024-09-18, title: 聯準會本輪首度降息2碼, category: central_bank, region: us, themes: [finance]}
+  - {date: 2024-11-06, title: 川普再度當選美國總統, category: politics, region: us, themes: [finance, defense]}
+  - {date: 2025-01-27, title: DeepSeek 低成本 AI 模型衝擊，輝達單日重挫約17%, category: technology, region: global, themes: [ai_server, big_tech_software]}
+  - {date: 2025-04-03, title: 美國宣布全面對等關稅，全球股市崩跌, category: trade, region: global, themes: [apple_chain, foundry, ai_server]}
+  - {date: 2025-04-07, title: 對等關稅衝擊，台股單日重挫近10%, category: trade, region: tw, themes: []}
+  - {date: 2025-04-09, title: 美國宣布暫緩對等關稅90天，美股單日大漲約9.5%, category: trade, region: global, themes: []}
+  - {date: 2025-06-13, title: 以色列空襲伊朗, category: war, region: me, themes: [oil_petrochem, defense, safe_haven]}
+  - {date: 2025-09-01, date_precision: month, title: 記憶體報價大漲（AI 需求排擠產能，DRAM/NAND 合約價急漲），記憶體股大漲, category: supply_price, region: global, themes: [memory]}

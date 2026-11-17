@@ -1,0 +1,114 @@
+# ============================================================
+# 股票分析系統設定檔
+# 沒有 API 金鑰時，系統會自動使用「模擬 AI」，一樣可以完整運作
+# ============================================================
+
+timezone: Asia/Taipei
+
+# ---------- 排程 ----------
+schedule:
+  # 每小時執行；以下台灣時間的「小時」會額外執行深度分析
+  deep_analysis_hours: [8, 22]    # 08:00 台股開盤前、22:00 美股開盤前
+  evaluate_hour: 15               # 15:00 台股收盤後，比對過去預測準不準
+
+# ---------- AI 設定 ----------
+ai:
+  # 每小時：新聞抽取 + 快速報告（用便宜的模型）
+  fast_providers: [claude]
+  # 每天 2 次深度分析（可多家 AI 交叉比對）
+  deep_providers: [claude, gemini]
+
+  providers:
+    claude:
+      env_key: ANTHROPIC_API_KEY
+      fast_model: claude-haiku-5-5
+      deep_model: claude-sonnet-5-5
+      fast_effort: low
+      deep_effort: medium
+    gemini:
+      env_key: GEMINI_API_KEY
+      fast_model: gemini-2.5-flash    # 申請金鑰時請確認目前可用的模型名稱
+      deep_model: gemini-2.5-flash
+    openai:
+      env_key: OPENAI_API_KEY
+      fast_model: gpt-5-mini          # 預設不啟用；要用時加到上面的 providers 清單
+      deep_model: gpt-5-mini
+
+  # 每百萬 token 價格（美元），用來計算花費。免費額度填 0
+  pricing:
+    claude-haiku-5-5:  {input: 0.10, output: 0.50, cache_read: 0.01}
+    claude-sonnet-5-5: {input: 2.00, output: 10.00, cache_read: 0.10}
+    claude-opus-5-5:   {input: 4.00, output: 20.00, cache_read: 0.20}
+    gemini-2.5-flash:  {input: 0, output: 0, cache_read: 0}
+    # OpenAI 價格請自行到官網查詢後填入
+    gpt-5-mini:        {input: 0, output: 0, cache_read: 0}
+
+  news_batch_size: 20        # 每次送給 AI 幾則新聞
+  max_news_per_hour: 120     # 每小時最多分析幾則新聞（控制成本）
+
+# ---------- 預算 ----------
+budget:
+  monthly_twd: 600
+  usd_to_twd: 32
+  # 花費超過預算的這個比例，就停止深度分析（只留每小時快速分析）
+  deep_stop_ratio: 0.85
+  # 超過這個比例，全部改用模擬 AI（不再花錢）
+  hard_stop_ratio: 1.0
+
+# ---------- 警示（推播）規則 ----------
+alerts:
+  stock_move_pct: 5.0          # 自選股單日漲跌超過 5%
+  index_move_pct: 2.0          # 大盤單日漲跌超過 2%
+  keyword_spike_ratio: 3.0     # 關鍵字熱度是平常的 3 倍以上
+  keyword_spike_min_count: 5   # 且至少出現 5 次
+  news_importance: 5           # 新聞重要性 5 分（滿分 5）
+
+# ---------- 大盤與市場指標 ----------
+markets:
+  us:
+    name: 美股
+    indices:
+      ^GSPC: S&P 500
+      ^IXIC: 那斯達克
+      ^DJI: 道瓊工業
+      ^SOX: 費城半導體
+  tw:
+    name: 台股
+    indices:
+      ^TWII: 台股加權指數
+  macro:
+    ^VIX: VIX 恐慌指數
+    ^TNX: 美國10年期公債殖利率
+    TWD=X: 美元/台幣
+    CL=F: 原油期貨
+    GC=F: 黃金期貨
+
+# ---------- 新聞來源 ----------
+news:
+  lookback_hours: 3
+  google_news:
+    zh:
+      params: "hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+      queries: [台股, 美股, 半導體, 記憶體 報價, 聯準會 利率, AI 伺服器, 關稅, 地緣政治 股市]
+    en:
+      params: "hl=en-US&gl=US&ceid=US:en"
+      queries: [stock market, semiconductor stocks, Federal Reserve, Nvidia, memory chip prices]
+  rss:
+    CNBC: https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114
+    Federal Reserve: https://www.federalreserve.gov/feeds/press_all.xml
+  yahoo_finance_symbols: [NVDA, MU, TSM, AAPL, ^GSPC]
+  cnyes_categories: [tw_stock, wd_stock, tw_macro]
+
+# ---------- 歷史事件庫 ----------
+history:
+  start: "2006-01-01"
+  indices: [^GSPC, ^IXIC, ^SOX, ^TWII]   # 用來偵測大漲大跌的指數
+  context: [^VIX, ^TNX, CL=F, GC=F]       # 只當參考，不拿來偵測
+  zscore_threshold: 3.0        # 單日漲跌超過 3 個標準差算「大漲大跌」
+  abs_move_pct:                # 或單日漲跌超過這個百分比
+    default: 3.5
+    ^SOX: 5.0
+  stock_abnormal_z: 3.5        # 個股扣掉大盤影響後，異常漲跌的門檻
+  max_stock_moves: 25          # 每檔股票最多保留幾個異常日
+  drawdown_pct: 10.0           # 回檔超過 10% 算一段「修正」
+  forward_days: [1, 5, 20, 60]
