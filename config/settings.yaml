@@ -16,7 +16,8 @@ ai:
   # 每小時：新聞抽取 + 快速報告（用便宜的模型）
   fast_providers: [claude]
   # 每天 2 次深度分析（可多家 AI 交叉比對）
-  deep_providers: [claude, gemini]
+  # 只有在 GitHub Secrets 設定了對應金鑰的 AI 才會執行，沒設定的會自動略過
+  deep_providers: [claude, gemini, openai]
 
   providers:
     claude:
@@ -29,10 +30,11 @@ ai:
       env_key: GEMINI_API_KEY
       fast_model: gemini-2.5-flash    # 申請金鑰時請確認目前可用的模型名稱
       deep_model: gemini-2.5-flash
-    openai:
+    openai:                           # ChatGPT（OpenAI API）
       env_key: OPENAI_API_KEY
-      fast_model: gpt-5-mini          # 預設不啟用；要用時加到上面的 providers 清單
+      fast_model: gpt-5-mini          # 模型名稱請到 OpenAI 價格頁確認，選最便宜的 mini / nano
       deep_model: gpt-5-mini
+      deep_effort: low                # 推理深度：minimal / low / medium / high（越高越貴）
 
   # 每百萬 token 價格（美元），用來計算花費。免費額度填 0
   pricing:
@@ -40,8 +42,8 @@ ai:
     claude-sonnet-5-5: {input: 2.00, output: 10.00, cache_read: 0.10}
     claude-opus-5-5:   {input: 4.00, output: 20.00, cache_read: 0.20}
     gemini-2.5-flash:  {input: 0, output: 0, cache_read: 0}
-    # OpenAI 價格請自行到官網查詢後填入
-    gpt-5-mini:        {input: 0, output: 0, cache_read: 0}
+    # OpenAI：以下為參考價，請到 https://openai.com/api/pricing/ 確認後更新
+    gpt-5-mini:        {input: 0.25, output: 2.00, cache_read: 0.025}
 
   news_batch_size: 20        # 每次送給 AI 幾則新聞
   max_news_per_hour: 120     # 每小時最多分析幾則新聞（控制成本）

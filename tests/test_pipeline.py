@@ -61,3 +61,33 @@ def test_claude_provider_request_shape(monkeypatch):
     p.generate_json(tier="deep", system="s", user="u", schema=schema)
     assert calls[1]["model"] == "claude-sonnet-5-5" and calls[1]["fallbacks"] == "default"
     assert anthropic  # SDK 已安裝
+
+
+def test_openai_provider_request_shape(monkeypatch):
+    from stock_analysis.ai.openai_provider import OpenAIProvider
+
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    calls = []
+
+    class _Completions:
+        def create(self, **kw):
+            calls.append(kw)
+            usage = SimpleNamespace(prompt_tokens=100, completion_tokens=20, prompt_tokens_details=SimpleNamespace(cached_tokens=40))
+            msg = SimpleNamespace(content='{"ok": true}')
+            return SimpleNamespace(usage=usage, choices=[SimpleNamespace(finish_reason="stop", message=msg)])
+
+    p = OpenAIProvider({"env_key": "OPENAI_API_KEY", "deep_model": "gpt-5-mini", "deep_effort": "low"})
+    p.client = SimpleNamespace(chat=SimpleNamespace(completions=_Completions()))
+    data, u = p.generate_json(tier="deep", system="s", user="u", schema=report_schema(True))
+    assert data == {"ok": True}
+    assert calls[0]["model"] == "gpt-5-mini" and calls[0]["reasoning_effort"] == "low"
+    assert calls[0]["response_format"] == {"type": "json_object"}
+    assert u.input_tokens == 60 and u.cache_read_tokens == 40 and u.output_tokens == 20
+
+
+def test_deep_providers_skip_missing_keys(cfg, monkeypatch):
+    from stock_analysis.ai import build_providers
+
+    assert [p.name for p in build_providers(cfg, "deep")] == ["mock"]
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    assert [p.name for p in build_providers(cfg, "deep")] == ["openai"]

@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 
 from .ai.base import Usage
 from .timeutil import to_tw
+
+log = logging.getLogger(__name__)
 
 
 class Budget:
@@ -22,6 +25,7 @@ class Budget:
     def cost_usd(self, u: Usage) -> float:
         p = self.pricing.get(u.model)
         if not p:
+            log.warning("模型 %s 沒有設定價格（config/settings.yaml 的 ai.pricing），花費以 0 計算", u.model)
             return 0.0
         inp, out = float(p.get("input", 0)), float(p.get("output", 0))
         cr = float(p.get("cache_read", inp * 0.1))

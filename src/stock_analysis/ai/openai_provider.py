@@ -21,13 +21,17 @@ class OpenAIProvider(AIProvider):
     def generate_json(self, *, tier, system, user, schema, max_tokens=8000):
         model = self.model_for(tier)
         prompt = f"{user}\n\n請只輸出符合以下 JSON Schema 的 JSON：\n{json.dumps(schema, ensure_ascii=False)}"
+        kwargs = dict(
+            model=model,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+            response_format={"type": "json_object"},
+            max_completion_tokens=max_tokens,
+        )
+        effort = self.conf.get(f"{tier}_effort")
+        if effort:  # 只有推理模型支援；沒設定就不傳
+            kwargs["reasoning_effort"] = effort
         try:
-            resp = self.client.chat.completions.create(
-                model=model,
-                messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-                response_format={"type": "json_object"},
-                max_completion_tokens=max_tokens,
-            )
+            resp = self.client.chat.completions.create(**kwargs)
         except self._openai.OpenAIError as e:
             raise AIError(f"OpenAI API 錯誤：{e}") from e
         u = resp.usage
@@ -39,4 +43,7 @@ class OpenAIProvider(AIProvider):
             output_tokens=u.completion_tokens or 0,
             cache_read_tokens=cached,
         )
-        return parse_json_text(resp.choices[0].message.content or ""), usage
+        choice = resp.choices[0]
+        if choice.finish_reason == "length":
+            raise AIError("ChatGPT 回應超過長度上限")
+        return parse_json_text(choice.message.content or ""), usage
